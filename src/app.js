@@ -31,7 +31,9 @@ function displayTemperature(response) {
   let dateElement = document.querySelector("#date");
   let iconElement = document.querySelector("#icon");
 
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  celciusTemperature = Math.round(response.data.main.temp);
+
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
   cityElement.innerHTML = response.data.name;
   descriptionElement.innerHTML = response.data.weather[0].main;
   humidityElement.innerHTML = Math.round(response.data.main.humidity);
@@ -44,19 +46,46 @@ function displayTemperature(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 function search(city) {
-
   let apiKey = "be25d619d46b559c14a95fb958a1e6a6";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
   axios.get(apiUrl).then(displayTemperature);
 }
 function handleSubmit(event) {
   event.preventDefault();
+  
 
   let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
 }
 
-search("New York");
+function displayCelsiusValue(event) {
+  event.preventDefault();
+ celsiusLink.classList.remove("active");
+ fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = celciusTemperature;
+}
+
+function displayFahrenheitValue(event) {
+  event.preventDefault();
+   celsiusLink.classList.add("active");
+   fahrenheitLink.classList.remove("active");
+  let fahrenheitValue = (celciusTemperature * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round(fahrenheitValue);
+}
+
+let celciusTemperature = null;
+let fahrenheitTemperature = null;
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
+
+let celsiusLink = document.querySelector("#c-link");
+celsiusLink.addEventListener("click", displayCelsiusValue);
+
+let fahrenheitLink = document.querySelector("#f-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitValue);
+
+search("New York");
