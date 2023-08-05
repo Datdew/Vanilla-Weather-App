@@ -71,5 +71,25 @@ a {
     color: rgb(33, 33, 33);
     cursor: default;
 
-
 }
+
+.weather-forecast {
+    margin-top: 20px;
+    text-align: center;
+    color: #000;
+}
+
+.weather-forcast-date {
+    font-size: 16px;
+    opacity: 0.5; 
+}
+
+.weather-forcast-temperature-min {
+    opacity: 0.5;
+}
+
+.weather-forcast-temperature {
+    font-size: 13px;
+}
+
+

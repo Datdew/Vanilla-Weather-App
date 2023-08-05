@@ -53,7 +53,6 @@ function search(city) {
 }
 function handleSubmit(event) {
   event.preventDefault();
-  
 
   let cityInputElement = document.querySelector("#city-input");
   search(cityInputElement.value);
@@ -61,16 +60,16 @@ function handleSubmit(event) {
 
 function displayCelsiusValue(event) {
   event.preventDefault();
- celsiusLink.classList.remove("active");
- fahrenheitLink.classList.add("active");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = celciusTemperature;
 }
 
 function displayFahrenheitValue(event) {
   event.preventDefault();
-   celsiusLink.classList.add("active");
-   fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   let fahrenheitValue = (celciusTemperature * 9) / 5 + 32;
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(fahrenheitValue);
