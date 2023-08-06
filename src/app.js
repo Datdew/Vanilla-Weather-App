@@ -22,6 +22,49 @@ function formatDate(timestamp) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function displayForcast () {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function(day){
+
+       forecastHTML = forecastHTML +
+         `
+      <div class="col-2">
+            <div class="weather-forcast-date">
+            ${day}
+            </div>
+            <img src="https://openweathermap.org/img/wn/04n@2x.png" 
+            alt=""
+            width="36"
+            />
+            <div class="weather-forcast-temperature">
+            <span class="weather-forcast-temperature-max">
+              18°
+            </span>
+            <span class="weather-forcast-temperature-min">
+              12°
+            </span>
+            </div>
+            </div>
+            `;
+  });
+        
+            forecastHTML = forecastHTML +  `</div>`;
+            forecastElement.innerHTML = forecastHTML; 
+}
+
+function getForcast(coordinates){
+  let apiKey = "be25d619d46b559c14a95fb958a1e6a6";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?
+  lat=${coordinates.lat}&lon=${coordinates.lon}
+  &appid= ${be25d619d46b559c14a95fb958a1e6a6}
+&units=metric`;
+
+
+  
+}
 function displayTemperature(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -44,6 +87,9 @@ function displayTemperature(response) {
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", response.data.weather[0].description);
+  
+  getForcast(response.data.coord);
+
 }
 function search(city) {
   let apiKey = "be25d619d46b559c14a95fb958a1e6a6";
@@ -76,7 +122,8 @@ function displayFahrenheitValue(event) {
 }
 
 let celciusTemperature = null;
-let fahrenheitTemperature = null;
+
+
 
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
@@ -88,3 +135,4 @@ let fahrenheitLink = document.querySelector("#f-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitValue);
 
 search("New York");
+displayForcast();
